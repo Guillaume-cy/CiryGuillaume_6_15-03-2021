@@ -1,4 +1,10 @@
+// DOTENV permet de cacher les informations sensibles dans le code grace au fichier '.env' creer a la racine et mis dans le gitignore
+require('dotenv').config();
+
+
 //APPLICATION
+
+
 
 const express = require('express'); //ajout du framework express au projet
 const helmet = require("helmet"); //sécurisation de l'app en ajoutant divers en-tête http
@@ -13,7 +19,7 @@ const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
 //connexion à la base de données
-mongoose.connect('mongodb+srv://Guillaume:KWaJ57mwR7VkIEzZ@cluster0.dcu8m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect((process.env.USER),
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -28,6 +34,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
+
 
 //sécurisation de l'application
 app.use(helmet());
