@@ -13,8 +13,10 @@ Ajout de 'Helmet' vous aide à protéger votre application de certaines des vuln
 
 ### Securite: 
 
-Helmet
-Dotenv
+Helmet pour le Xss
+Dotenv afin de masquer les donneées sensible
+Express rate limit pour une limitation des requetes 
+Mongo interceptor afin de se proteger des injections dans la base de donnée 
 
 
 #### Demarrage du serveur : 

@@ -5,13 +5,29 @@ const jwt = require('jsonwebtoken'); //création des token d'identification pour
 
 const User = require('../models/user'); //importation du model User
 
+// Securite de MDP 
+var owasp = require('owasp-password-strength-test');
+ 
+// Pass a hash of settings to the `config` method. The settings shown here are
+// the defaults.
+owasp.config({
+  allowPassphrases       : true,
+  maxLength              : 128,
+  minLength              : 10,
+  minPhraseLength        : 20,
+  minOptionalTestsToPass : 4,
+});
 
 //INSCRIPTION USER
 exports.signUpUser = (req, res, next) => {
     //cryptage du mot de passe
+    var result = owasp.test(req.body.password)
+        if (result.errors.length>0 ) res.status(400).json({ 'error':result.errors })
+    //console.log (result)
     bcrypt.hash(req.body.password, 10)
         //creation user et enregistrement dans le base de donnée
         .then(hash => {
+            
             const user = new User({
                 email: req.body.email,
                 password: hash
